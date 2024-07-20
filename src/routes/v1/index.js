@@ -28,12 +28,13 @@ const fetchNumbers = async (type) => {
 	try {
         const response = await axios.get(url, {
             headers: {
-                'Authorization': `${TOKEN_TYPE} ${ACCESS_TOKEN}`
+                'Authorization': `Bearer ${ACCESS_TOKEN}`
             },
             timeout: TIMEOUT
         });
         return response.data.numbers;
     } catch (error) {
+		console.log(error);
         return [];
     }
 };
