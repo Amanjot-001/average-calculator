@@ -2,7 +2,9 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
-const { WINDOW_SIZE, TIMEOUT, TOKEN_TYPE, ACCESS_TOKEN } = require('../../config');
+const { ServerConfig } = require('../../config');
+
+console.log(ServerConfig.WINDOW_SIZE)
 
 let windowNumbers = [];
 
@@ -28,9 +30,9 @@ const fetchNumbers = async (type) => {
 	try {
         const response = await axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${ACCESS_TOKEN}`
+                'Authorization': `Bearer ${ServerConfig.ACCESS_TOKEN}`
             },
-            timeout: TIMEOUT
+            timeout: ServerConfig.TIMEOUT
         });
         return response.data.numbers;
     } catch (error) {
@@ -41,7 +43,7 @@ const fetchNumbers = async (type) => {
 
 const updateWindow = (newNumbers) => {
     const uniqueNumbers = new Set([...windowNumbers, ...newNumbers]);
-    windowNumbers = Array.from(uniqueNumbers).slice(-WINDOW_SIZE);
+    windowNumbers = Array.from(uniqueNumbers).slice(-ServerConfig.WINDOW_SIZE);
 };
 
 const calculateAverage = () => {
