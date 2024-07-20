@@ -5,5 +5,7 @@ dotenv.config();
 module.exports = {
     PORT: process.env.PORT,
 	WINDOW_SIZE: process.env.WINDOW_SIZE,
-    TIMEOUT: process.env.TIMEOUT
+    TIMEOUT: process.env.TIMEOUT,
+	ACCESS_TOKEN: process.env.ACCESS_TOKEN,
+	TOKEN_TYPE: process.env.TOKEN_TYPE
 }

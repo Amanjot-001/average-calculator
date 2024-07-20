@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
-const { WINDOW_SIZE, TIMEOUT } = require('../../config');
+const { WINDOW_SIZE, TIMEOUT, TOKEN_TYPE, ACCESS_TOKEN } = require('../../config');
 
 let windowNumbers = [];
 
@@ -26,11 +26,16 @@ const fetchNumbers = async (type) => {
 	}
 
 	try {
-		const response = await axios.get(url, { timeout: TIMEOUT });
-		return response.data.numbers;
-	} catch (error) {
-		return [];
-	}
+        const response = await axios.get(url, {
+            headers: {
+                'Authorization': `${TOKEN_TYPE} ${ACCESS_TOKEN}`
+            },
+            timeout: TIMEOUT
+        });
+        return response.data.numbers;
+    } catch (error) {
+        return [];
+    }
 };
 
 const updateWindow = (newNumbers) => {
